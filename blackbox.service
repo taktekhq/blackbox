@@ -1,0 +1,18 @@
+[Unit]
+Description=blackbox flight recorder: temperatures, power and load every 2 s
+After=local-fs.target
+
+[Service]
+ExecStart=/usr/local/bin/blackbox record
+Restart=always
+RestartSec=5
+# Keep sampling when the machine is overloaded, which is when the record matters most.
+Nice=-10
+LogsDirectory=blackbox
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=multi-user.target
